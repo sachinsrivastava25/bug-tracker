@@ -3,6 +3,12 @@ pipeline {
 
     stages {
         stage('Unit Tests - Backend') {
+            agent{
+                docker {
+                    image 'bugtracker-jenkins-go-junit:latest'
+                    reuseNode true
+                }
+            }
             steps {
                 dir('bugtracker-backend') {
                     sh 'go test -v ./...'
