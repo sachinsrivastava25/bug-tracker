@@ -2,14 +2,7 @@ FROM jenkins/jenkins:lts-jdk17
 
 USER root
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  lsb-release \
-  golang-go \
-  ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN go install github.com/jstemmer/go-junit-report/v2@latest && \
-  mv /root/go/bin/go-junit-report /usr/local/bin/go-junit-report
+RUN apt-get update && apt-get install -y lsb-release
 
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
   https://download.docker.com/linux/debian/gpg

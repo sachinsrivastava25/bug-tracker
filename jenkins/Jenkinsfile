@@ -5,7 +5,7 @@ pipeline {
         stage('Unit Tests - Backend') {
             agent {
                 docker {
-                    image 'bugtracker-jenkins-go-junit:latest'
+                    image 'bugtracker-backend:latest'
                     alwaysPull false
                     reuseNode true
                 }
