@@ -7,6 +7,7 @@ pipeline {
                 docker {
                     image 'bugtracker-backend:latest'
                     alwaysPull false
+                    args '-e GOCACHE=/tmp/go-build -e GOPATH=/tmp/go'
                 }
             }
             steps {
