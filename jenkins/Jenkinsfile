@@ -29,14 +29,13 @@ pipeline {
                     sh 'npm test'
                 }
             }
+
+            post {
+             always {
+                junit testResults: 'bugtracker-frontend/test-results.xml', allowEmptyResults: true
+                    }
+                }
         }
 
-    }
-
-    post {
-        always {
-            junit testResults: 'bugtracker-backend/test-results.xml', allowEmptyResults: true
-            junit testResults: 'bugtracker-frontend/test-results.xml', allowEmptyResults: true
-        }
     }
 }
