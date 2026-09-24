@@ -17,14 +17,6 @@ pipeline {
             }
         }
 
-        stage('Build Frontend Test Image') {
-            steps {
-                dir('bugtracker-frontend') {
-                    sh 'docker build -f Dockerfile.test -t bugtracker-frontend-test:latest .'
-                }
-            }
-        }
-
         stage('Unit Tests - Frontend') {
             agent {
                 docker {
@@ -36,6 +28,13 @@ pipeline {
                 dir('bugtracker-frontend') {
                     sh 'npm test'
                 }
+            }
+        }
+
+        post {
+            always {
+                junit 'bugtracker-backend/test-results.xml'
+                junit 'bugtracker-frontend/test-results.xml'
             }
         }
     }
