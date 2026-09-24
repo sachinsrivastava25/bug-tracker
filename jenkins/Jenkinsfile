@@ -2,6 +2,20 @@ pipeline {
     agent any
 
     stages {
+        stage('Execute Unit Tests') {
+            parallel {
+                stage('Backend') {
+                    steps {
+                        build job: 'bugtracker-backend-unit-tests', wait: true
+                    }
+                }
+                stage('Frontend') {
+                    steps {
+                        build job: 'bugtracker-frontend-unit-tests', wait: true
+                    }
+                }
+            }
+        }
         stage('Unit Tests - Backend') {
             agent {
                 docker {
