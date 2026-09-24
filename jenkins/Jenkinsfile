@@ -16,5 +16,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Unit Tests - Frontend') {
+            agent {
+                docker {
+                    image 'bugtracker-frontend-test:latest'
+                    alwaysPull false
+                }
+            }
+            steps {
+                dir('bugtracker-frontend') {
+                    sh 'npm test'
+                }
+            }
+        }
     }
 }
