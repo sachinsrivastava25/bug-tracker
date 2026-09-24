@@ -17,6 +17,12 @@ pipeline {
             }
         }
 
+        stage('Build Frontend Test Image') {
+            steps {
+                sh 'docker build -f bugtracker-frontend/Dockerfile.test -t bugtracker-frontend-test:latest bugtracker-frontend'
+            }
+        }
+
         stage('Unit Tests - Frontend') {
             agent {
                 docker {
