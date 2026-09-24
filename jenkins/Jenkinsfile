@@ -31,11 +31,12 @@ pipeline {
             }
         }
 
-        post {
-            always {
-                junit 'bugtracker-backend/test-results.xml'
-                junit 'bugtracker-frontend/test-results.xml'
-            }
+    }
+
+    post {
+        always {
+            junit 'bugtracker-backend/test-results.xml'
+            junit 'bugtracker-frontend/test-results.xml'
         }
     }
 }
