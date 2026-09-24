@@ -49,14 +49,23 @@ pipeline {
             }
             steps {
                 dir('bugtracker-frontend') {
-                    sh 'npm ci'
-                    sh 'npm test'
+                    sh '''
+                        npm ci
+                        npm test
+                        mkdir -p reports
+                        mv coverage reports/    
+                    '''
                 }
             }
 
             post {
              always {
                 junit testResults: 'bugtracker-frontend/test-results.xml', allowEmptyResults: true
+                publishHTML target: [
+                    reportDir: 'bugtracker-frontend/reports/coverage',
+                    reportFiles: 'index.html',
+                    reportName: 'Frontend Coverage Report'
+                ]
                     }
                 }
         }
