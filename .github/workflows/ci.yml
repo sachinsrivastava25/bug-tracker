@@ -85,7 +85,7 @@ jobs:
         
   create-coverage-comment:
     if : github.event_name == 'pull_request'
-    needs: [unit-test-backend, unit-test-frontend]
+    needs: [unit-test-backend]
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
