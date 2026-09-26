@@ -10,6 +10,7 @@ pipeline {
                             image 'bugtracker-backend:latest'
                             alwaysPull false
                             args '-e GOCACHE=/tmp/go-build -e GOPATH=/tmp/go'
+                            reuseNode true
                         }
                     }
                     steps {
@@ -46,6 +47,7 @@ pipeline {
                 docker {
                     image 'bugtracker-frontend-test:latest'
                     alwaysPull false
+                    reuseNode true
                 }
             }
             steps {
@@ -79,12 +81,33 @@ pipeline {
                     image 'bugtracker-backend:latest'
                     alwaysPull false
                     args '-v /var/run/docker.sock:/var/run/docker.sock -u 0'
+                    reuseNode true
                 }
             }
                 steps {
                        sh 'docker-compose up --build -d'
                 }
 
+        }
+
+        stage('API Tests'){
+            agent {
+                docker {
+                    image 'bugtracker-api-tests:latest'
+                    alwaysPull false
+                    reuseNode true
+                    args '-u 0 --network=host'
+                }
+            }
+            steps {
+                dir('tests-api') {
+                    sh '''
+                        npx wait-port http://localhost8080/api/health -t 30000 -- echo "Backend is up and running"
+                        npm ci
+                        npx playwright test
+                    '''
+                }
+            }
         }
     }
     post {
