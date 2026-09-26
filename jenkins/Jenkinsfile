@@ -76,17 +76,10 @@ pipeline {
         }
 
         stage('Launch Application'){
-            agent {
-                docker {
-                    image 'bugtracker-backend:latest'
-                    alwaysPull false
-                    args '-v /var/run/docker.sock:/var/run/docker.sock -u 0'
-                    reuseNode true
-                }
+            agent any
+            steps {
+                sh 'docker compose up --build -d'
             }
-                steps {
-                       sh 'docker-compose up --build -d'
-                }
 
         }
 

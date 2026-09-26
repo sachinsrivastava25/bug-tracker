@@ -19,6 +19,7 @@ services:
 
   my-jenkins:
     image: my-jenkins
+    build: .
     container_name: my-jenkins
     restart: on-failure
     environment:
