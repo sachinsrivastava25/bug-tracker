@@ -95,7 +95,7 @@ pipeline {
             steps {
                 dir('tests-api') {
                     sh '''
-                        npx wait-port http://localhost8080/api/health -t 30000 -- echo "Backend is up and running"
+                        npx wait-port http://localhost:8080/api/health -t 30000 -- echo "Backend is up and running"
                         npm ci
                         npx playwright test
                     '''
