@@ -73,6 +73,19 @@ pipeline {
             }
         }
 
+        stage('Launch Application'){
+            agent {
+                docker {
+                    image 'bugtracker-backend:latest'
+                    alwaysPull false
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u 0'
+                }
+                steps {
+                       sh 'docker-compose up --build -d'
+                }
+            }
+
+        }
     }
     post {
         always {
