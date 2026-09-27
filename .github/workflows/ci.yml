@@ -162,4 +162,4 @@ jobs:
         with:
           name: API Tests Results
           path: ./tests-api/test-results/*.xml
-          reprter: jest-junit
+          reporter: jest-junit
