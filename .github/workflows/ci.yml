@@ -119,7 +119,7 @@ jobs:
             ${{ needs.unit-tests-frontend.outputs.coverage }}
             ```
     
-  api-test:
+  api-e2e-test:
     needs: [unit-test-backend, unit-test-frontend]
     runs-on: ubuntu-latest
     steps:
@@ -145,7 +145,7 @@ jobs:
           npm ci
           npx playwright install
           npx playwright test
-          
+
       - name: Stutdown application
         run: docker compose down
       
