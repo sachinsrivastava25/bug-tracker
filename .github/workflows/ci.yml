@@ -196,7 +196,7 @@ jobs:
         if: always()
         with:
           name: Performance Tests Results
-          path: ./tests-perf/summary.json    
+          path: summary.json    
           retention-days: 30
       
       - name: Upload Performance Test HTML Report
@@ -204,7 +204,7 @@ jobs:
         if: always()
         with:
           name: Performance Tests HTML Report 
-          path: ./tests-perf/perf-results.html
+          path: perf-results.html
           retention-days: 30
 
       - name: Publish API Test Results
